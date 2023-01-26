@@ -35,6 +35,10 @@ function App() {
         setTasks([...tasks, newTask]);
     }
 
+    const changeTaskStatus = (taskId: string, isDone: boolean) => {
+        setTasks(tasks.map((t) => t.id === taskId ? {...t, isDone: isDone}: t ))
+    }
+
 
 
     const getFilteredTaskForRender = (tasks: Array<TaskType>, filter: FilterValuesType): Array<TaskType> => {
@@ -69,6 +73,8 @@ function App() {
                 removeTask={removeTask}
                 changeFilter={changeFilter}
                 addTask={addTask}
+                changeTaskStatus={changeTaskStatus}
+                filter={filter}
             />
             {/*<TodoList title={toDoListTitle_2} tasks={tasks}/>*/}
             {/*<TodoList title={"Привет"} tasks={tasks_1}/>*/}
