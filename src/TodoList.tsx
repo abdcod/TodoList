@@ -23,7 +23,7 @@ export type TaskType = {
 
 const TodoList: FC<TodoListPropsType> = (props) => {
 
-    const [title, setTitle] = useState<string>("")
+    const [title, setTitle] = useState<string>("");
     const [error, setError] = useState<boolean>(false);
 
     let taskList = props.tasks.length
