@@ -1,5 +1,6 @@
 import React, {ChangeEvent, FC, KeyboardEvent, useState} from 'react';
 import {FilterValuesType} from "./App";
+import AddItemForm from "./AddItemForm";
 
 type TodoListPropsType = {
     todoListId: string
@@ -25,8 +26,8 @@ export type TaskType = {
 
 const TodoList: FC<TodoListPropsType> = (props) => {
 
-    const [title, setTitle] = useState<string>("");
-    const [error, setError] = useState<boolean>(false);
+    // const [title, setTitle] = useState<string>("");
+    // const [error, setError] = useState<boolean>(false);
 
     let taskList = props.tasks
         ? props.tasks.map((task: TaskType) => {
@@ -50,47 +51,40 @@ const TodoList: FC<TodoListPropsType> = (props) => {
     //
     // props.tasks.length
 
-    const addTask = () => {
-        const trimmedTitle = title.trim();
-        if (trimmedTitle !== "") {
-            props.addTask(trimmedTitle, props.todoListId);
-            //setError(false);
-        } else {
-            setError(true);
-        }
-        setTitle("");
-    }
+    const addTask = (title:string) => props.addTask(title, props.todoListId)
 
-    const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
-        error && setError(false);
-        setTitle(event.currentTarget.value)
-    }
-    const onKeyDownHandler = (e: KeyboardEvent<HTMLInputElement>) => e.key === "Enter" && addTask();
+    // {
+    //     const trimmedTitle = title.trim();
+    //     if (trimmedTitle !== "") {
+    //         props.addTask(trimmedTitle, props.todoListId);
+    //         //setError(false);
+    //     } else {
+    //         setError(true);
+    //     }
+    //     setTitle("");
+    // }
+
+    // const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+    //     error && setError(false);
+    //     setTitle(event.currentTarget.value)
+    // }
+    // const onKeyDownHandler = (e: KeyboardEvent<HTMLInputElement>) => e.key === "Enter" && addTask();
     const removeTodoList = () => props.removeTodoList(props.todoListId)
 
     const handlerCreator = (filter: FilterValuesType) => {
         return () => props.changeToDoListFilter(filter, props.todoListId);
     }
-    const errorMessage = error &&
-        <p style={{color: "red", fontWeight: "bold", margin: "0"}}>Title is not applicable</p>;
-
-    const inputErrorClasses = error ? 'input-error' : "";
+    // const errorMessage = error &&
+    //     <p style={{color: "red", fontWeight: "bold", margin: "0"}}>Title is not applicable</p>;
+    //
+    // const inputErrorClasses = error ? 'input-error' : "";
 
     return (
         <div>
             <h3>{props.title}
-                <button onClick={removeTodoList}></button>
+                <button onClick={removeTodoList}>х</button>
             </h3>
-            <div>
-                <input
-                    value={title}
-                    onChange={onChangeHandler}
-                    onKeyDown={onKeyDownHandler}
-                    className={inputErrorClasses}
-                />
-                <button onClick={addTask}>+</button>
-                {errorMessage}
-            </div>
+            <AddItemForm addItem={addTask}/>
             <ul>
                 {taskList}
             </ul>
