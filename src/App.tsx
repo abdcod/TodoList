@@ -59,6 +59,10 @@ function App() {
         setTodolists(todoLists.map((tl) => tl.id === todolistId ? {...tl, filter: filter} : tl));
     }
 
+    const changeToDoListTitle= (title: string, todolistId: string) => {
+        setTodolists(todoLists.map((tl) => tl.id === todolistId ? {...tl, title: title} : tl));
+    }
+
     const removeTodoList = (todoListId: string) => {
         const updatedTodoLists = todoLists.filter((tl) => tl.id !== todoListId );
         setTodolists(updatedTodoLists);
@@ -102,9 +106,11 @@ function App() {
 
     const changeTaskStatus = (taskId: string, isDone: boolean, todolistId: string) => {
         setTasks({...tasks, [todolistId]: tasks[todolistId].map((t) => t.id === taskId ? {...t, isDone: isDone} : t) })
-
-
         // setTasks(tasks.map((t) => t.id === taskId ? {...t, isDone: isDone} : t))
+    }
+
+    const changeTaskTitle = (taskId: string, title: string, todolistId: string) => {
+        setTasks({...tasks, [todolistId]: tasks[todolistId].map((t) => t.id === taskId ? {...t, title: title} : t)})
     }
 
     const getFilteredTaskForRender = (tasks: Array<TaskType>, filter: FilterValuesType): Array<TaskType> => {
@@ -137,6 +143,8 @@ function App() {
                 changeTaskStatus={changeTaskStatus}
                 filter={tl.filter}
                 removeTodoList={removeTodoList}
+                changeTaskTitle={changeTaskTitle}
+                changeToDoListTitle={changeToDoListTitle}
             />
 
         )

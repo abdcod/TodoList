@@ -1,6 +1,7 @@
 import React, {ChangeEvent, FC, KeyboardEvent, useState} from 'react';
 import {FilterValuesType} from "./App";
 import AddItemForm from "./AddItemForm";
+import EditableSpan from "./EditableSpan";
 
 type TodoListPropsType = {
     todoListId: string
@@ -12,6 +13,8 @@ type TodoListPropsType = {
     changeTaskStatus: (taskId: string, isDone: boolean, todolistId: string) => void
     filter: FilterValuesType
     removeTodoList: (todoListId: string) => void
+    changeTaskTitle: (taskId: string, title: string, todolistId: string) => void
+    changeToDoListTitle: (title: string, todolistId: string) => void
 }
 
 
@@ -34,10 +37,11 @@ const TodoList: FC<TodoListPropsType> = (props) => {
             const removeTask = () => props.removeTask(task.id, props.todoListId)
             const changeTaskStatus = (event: ChangeEvent<HTMLInputElement>) => props.changeTaskStatus(task.id, event.currentTarget.checked, props.todoListId)
             const taskClasses = task.isDone ? "task-done" : "task"
+            const changeTaskTitle = (title: string) => props.changeTaskTitle(task.id, title, props.todoListId)
             return (
                 <li key={task.id} className={taskClasses}>
                     <input onChange={changeTaskStatus} type="checkbox" checked={task.isDone}/>
-                    <span>{task.title}</span>
+                    <EditableSpan title={task.title} changeTitle={changeTaskTitle}/>
                     <button onClick={removeTask}>x</button>
                 </li>
             )
@@ -79,9 +83,11 @@ const TodoList: FC<TodoListPropsType> = (props) => {
     //
     // const inputErrorClasses = error ? 'input-error' : "";
 
+    const changeTodoListTitle = (title: string) => props.changeToDoListTitle(title, props.todoListId);
+
     return (
         <div>
-            <h3>{props.title}
+            <h3><EditableSpan title={props.title} changeTitle={changeTodoListTitle}/>
                 <button onClick={removeTodoList}>х</button>
             </h3>
             <AddItemForm addItem={addTask}/>
