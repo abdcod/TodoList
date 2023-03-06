@@ -6,8 +6,8 @@ import {
     ChangeToDoListFilterAT,
     ChangeToDoListTitleAT, ChangeToDoListTitleAС,
     RemoveTodolistAC,
-    todolistsReducers
-} from "./todolists-reducers";
+    todolistsReducer
+} from "./todolists-reducer";
 
 
 test("correct todolist should be removed",
@@ -20,7 +20,7 @@ test("correct todolist should be removed",
         {id: todolistId1, title: "What to learn", filter: "all"},
         {id: todolistId2, title: "What to buy", filter: "all"}
     ]
-        const endState = todolistsReducers(startState, RemoveTodolistAC(todolistId1))
+        const endState = todolistsReducer(startState, RemoveTodolistAC(todolistId1))
 
         expect(endState.length).toBe(1);
         expect(endState[0].id).toBe(todolistId2);
@@ -44,7 +44,7 @@ test("correct todolist should be added", () => {
     //         title: newTodoListTitle
     //     }
     // }
-    const endState = todolistsReducers(startState, AddTodolistAC(newTodoListTitle));
+    const endState = todolistsReducer(startState, AddTodolistAC(newTodoListTitle));
 
     expect(endState.length).toBe(3);
     expect(endState[2].title).toBe(newTodoListTitle);
@@ -72,7 +72,7 @@ test("correct todolist should change its name", () => {
     //         title: newTodoListTitle
     //     }
     // }
-    const endState = todolistsReducers(startState, ChangeToDoListTitleAС(newTodoListTitle, todolistId2));
+    const endState = todolistsReducer(startState, ChangeToDoListTitleAС(newTodoListTitle, todolistId2));
 
     expect(endState[0].title).toBe("What to learn");
     expect(endState[1].title).toBe(newTodoListTitle);
@@ -97,7 +97,7 @@ test("correct filter of todolist should be changed", () => {
     //         todolistId: todolistId2
     //     }
     // }
-    const endState = todolistsReducers(startState, ChangeToDoListFilterAC(newFilter, todolistId2));
+    const endState = todolistsReducer(startState, ChangeToDoListFilterAC(newFilter, todolistId2));
 
     expect(endState[0].filter).toBe("all");
     expect(endState[1].filter).toBe(newFilter);
