@@ -9,7 +9,6 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "./state/store";
 import TodoListWithRedux from "./TodoListWithRedux";
 
-
 export type FilterValuesType = "all" | "active" | "completed";
 
 export type TodoListType = {
@@ -17,6 +16,7 @@ export type TodoListType = {
     title: string,
     filter: FilterValuesType
 }
+
 export type TaskStateType = {
     [todolist: string]: Array<TaskType>
 }
@@ -32,7 +32,6 @@ function AppWithRedux() {
     const addTodolist = (title: string) => {
         dispatch(AddTodolistAC(title));
     }
-
 
     const todoListComponents = todoLists.length ?
         todoLists.map((tl) => {

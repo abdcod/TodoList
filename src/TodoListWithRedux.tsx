@@ -45,10 +45,8 @@ const TodoListWithRedux: FC<TodoListPropsType> = (props) => {
 
             return (
                 <ListItem sx={{p: "0px"}} key={task.id} className={taskClasses}>
-                    {/*<input onChange={changeTaskStatus} type="checkbox" checked={task.isDone}/>*/}
                     <Checkbox size={"small"} onChange={changeTaskStatus} checked={task.isDone} />
                     <EditableSpan title={task.title} changeTitle={changeTaskTitle}/>
-                    {/*<button onClick={removeTask}>x</button>*/}
                     <BackspaceIcon
                         sx={{ml: "10px", fontSize: "12px", verticalAlign: "middle"}}
                         color={"warning"}
